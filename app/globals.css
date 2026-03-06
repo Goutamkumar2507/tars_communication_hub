@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020a14;
+  --foreground: #a0e8ff;
 }
 
 @theme inline {
@@ -12,15 +13,136 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
+}
+
+/* ── SCANLINES ── */
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.025) 2px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+}
+
+/* ── GATE STYLES ── */
+.gate-metal {
+  background: linear-gradient(90deg, #1a2530 0%, #253545 40%, #2d4055 60%, #1e2e3e 100%);
+}
+.gate-door-left {
+  border-right: 2px solid rgba(58, 80, 96, 0.8);
+  box-shadow: inset -20px 0 60px rgba(0,0,0,0.6), 4px 0 30px rgba(0,150,200,0.06);
+  /* rivets via repeating-radial-gradient */
+  background-image: repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.012) 0px, transparent 1px, transparent 60px
+  ), repeating-linear-gradient(
+    0deg, rgba(255,255,255,0.008) 0px, transparent 1px, transparent 50px
+  );
+}
+.gate-door-right {
+  border-left: 2px solid rgba(58, 80, 96, 0.8);
+  box-shadow: inset 20px 0 60px rgba(0,0,0,0.6), -4px 0 30px rgba(0,150,200,0.06);
+  background-image: repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.012) 0px, transparent 1px, transparent 60px
+  ), repeating-linear-gradient(
+    0deg, rgba(255,255,255,0.008) 0px, transparent 1px, transparent 50px
+  );
+}
+.gate-brace {
+  background: linear-gradient(180deg,
+    rgba(60,90,110,0.55),
+    rgba(30,50,65,0.75),
+    rgba(60,90,110,0.55)
+  );
+  border-top: 1px solid rgba(100,160,190,0.18);
+  border-bottom: 1px solid rgba(20,40,55,0.7);
+}
+.gate-diag {
+  background: linear-gradient(90deg, transparent, rgba(0,180,220,0.18), transparent);
+}
+.gate-edge-light {
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(0,200,255,0.28) 30%,
+    rgba(0,200,255,0.5) 50%,
+    rgba(0,200,255,0.28) 70%,
+    transparent
+  );
+}
+.gate-seam {
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(0,220,255,0.8) 20%,
+    rgba(0,220,255,1) 50%,
+    rgba(0,220,255,0.8) 80%,
+    transparent
+  );
+  box-shadow: 0 0 20px rgba(0,220,255,0.8), 0 0 40px rgba(0,220,255,0.4);
+}
+.gate-frame-top {
+  background: linear-gradient(180deg, #111e2a 0%, #0a1620 100%);
+  border-bottom: 1px solid rgba(0,180,220,0.25);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.gate-progress {
+  animation: progressFill 2s cubic-bezier(0.4,0,0.2,1) forwards;
+  box-shadow: 0 0 8px rgba(0,220,255,0.8);
+}
+@keyframes progressFill {
+  0%   { width: 0%; }
+  60%  { width: 78%; }
+  100% { width: 100%; }
+}
+
+/* ── HUD ANIMATIONS ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes glowP {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+/* ── LOG SCROLL ── */
+.log-scroll {
+  animation: scrollUp 9s linear infinite;
+}
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+/* ── TYPEWRITER ── */
+.typewriter {
+  width: 0;
+  animation:
+    typing 2.5s steps(22) 0.5s both,
+    cursorBlink 0.6s step-end infinite 3s;
+}
+@keyframes typing {
+  to { width: 100%; }
+}
+@keyframes cursorBlink {
+  50% { border-color: transparent; }
+}
+
+/* ── HOLOGRAM (keep for /chat or other pages) ── */
+.hologram-ui {
+  opacity: 0.85;
+  filter:
+    drop-shadow(0 0 20px #00ffff)
+    drop-shadow(0 0 40px #00ffff)
+    drop-shadow(0 0 80px #00ffff);
+  mix-blend-mode: screen;
+  animation: hologramFloat 6s ease-in-out infinite;
+}
+@keyframes hologramFloat {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
